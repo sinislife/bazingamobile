@@ -8,7 +8,7 @@ public class Usuario {
     private String cpf;
     private String usuario;
     private String jogos;
-    private String senha;
+    private String descricao;
     private Date dataCriacao;
 
 
@@ -24,13 +24,9 @@ public class Usuario {
         this.cpf = cpf;
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
+    public String getUsuario() { return usuario; }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
+    public void setUsuario(String usuario) {this.usuario = usuario; }
 
     public String getJogos() {
         return jogos;
@@ -40,12 +36,12 @@ public class Usuario {
         this.jogos = jogos;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public Date getDataCriacao() {
@@ -65,7 +61,7 @@ public class Usuario {
                 "cpf='" + cpf + '\'' +
                 ", usuario='" + usuario + '\'' +
                 ", jogos='" + jogos + '\'' +
-                ", senha='" + senha + '\'' +
+                ", descricao='" + descricao + '\'' +
                 ", dataCriacao=" + dataCriacao +
                 '}';
     }
@@ -78,13 +74,13 @@ public class Usuario {
         return Objects.equals(getCpf(), that.getCpf()) &&
                 Objects.equals(getUsuario(), that.getUsuario()) &&
                 Objects.equals(getJogos(), that.getJogos()) &&
-                Objects.equals(getSenha(), that.getSenha()) &&
+                Objects.equals(getDescricao(), that.getDescricao()) &&
                 Objects.equals(getDataCriacao(), that.getDataCriacao());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCpf(), getUsuario(), getJogos(),getSenha(), getDataCriacao());
+        return Objects.hash(getCpf(), getUsuario(), getJogos(),getDescricao(), getDataCriacao());
     }
 
 

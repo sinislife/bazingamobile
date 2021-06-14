@@ -1,13 +1,15 @@
 package br.unibh.sdm.appbazinga.activities;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,7 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     private UsuarioService service = null;
     final private MainActivity mainActivity = this;
@@ -27,10 +29,34 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Lista de Usuarios");
         setContentView(R.layout.activity_main);
         service = RestServiceGenerator.createService(UsuarioService.class);
         buscaUsuarios();
+        criAcaoBotaoFlutuante();
     }
+
+
+    private void criAcaoBotaoFlutuante () {
+        FloatingActionButton botaoNovo = findViewById (R.id.floatingActionButton2);
+        botaoNovo.setOnClickListener (new View.OnClickListener() {
+            @Override
+            public  void  onClick (View v) {
+                Log.i("MainActivity"," Clicou no botão para adicionar Nova Criptomoeda ");
+                startActivity (new Intent(MainActivity.this,
+                        FomularioUsuario.class));
+
+            }
+        });
+    }
+
+
+    @Override
+    protected  void  onResume () {
+        super.onResume();
+        buscaUsuarios();
+    }
+
 
     public void buscaUsuarios(){
         UsuarioService service = RestServiceGenerator.createService(UsuarioService.class);
@@ -39,7 +65,7 @@ public class MainActivity extends Activity {
             @Override
             public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
                 if (response.isSuccessful()) {
-                    Log.i("UsuarioDAO", "Retornou " + response.body().size() + " Usuarios!");
+                    Log.i("UsuarioDAO", "Retornou " + response.body().size() + " Usuario!");
                     List<String> lista2 = new ArrayList<String>();
                     for (Usuario item : response.body()) {
                         lista2.add(item.getUsuario());
