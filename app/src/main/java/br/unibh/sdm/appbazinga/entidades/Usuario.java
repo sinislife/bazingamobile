@@ -1,9 +1,10 @@
 package br.unibh.sdm.appbazinga.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Usuario {
+public class Usuario implements Serializable {
 
     private String cpf;
     private String usuario;

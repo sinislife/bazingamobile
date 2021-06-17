@@ -12,7 +12,7 @@
             android:usesCleartextTraffic="true">
         <activity android:name=".activities.FomularioUsuario">//MainActivity
         </activity>
-        <activity android:name=".activities.MainActivity"> //CadastroUsuario
+        <activity android:name=".activities.ListaUsuarioActivity"> //CadastroUsuario
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

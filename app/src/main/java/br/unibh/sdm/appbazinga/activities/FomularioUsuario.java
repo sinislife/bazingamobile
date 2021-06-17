@@ -1,5 +1,6 @@
 package br.unibh.sdm.appbazinga.activities;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,25 @@ public class FomularioUsuario extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_usuario);
         setTitle("Edição de Usuario");
         configuraBotaoSalvar();
+        inicializaObjeto();
+    }
+
+    private void inicializaObjeto() {
+        Intent intent = getIntent();
+        if (intent.getSerializableExtra("objeto") != null) {
+            Usuario objeto = (Usuario) intent.getSerializableExtra("objeto");
+            EditText usuario = findViewById(R.id.editTextoUsuario);
+            EditText jogos = findViewById(R.id.editTextoJOGOS);
+            EditText cpf = findViewById(R.id.editTextoCPF);
+            EditText senha = findViewById(R.id.editTextoSENHA);
+            usuario.setText(objeto.getUsuario());
+            jogos.setText(objeto.getJogos());
+            cpf.setText(objeto.getCpf());
+            senha.setText(objeto.getSenha());
+            cpf.setEnabled(false);
+            Button botaoSalvar = findViewById(R.id.buttonsalvar);
+            botaoSalvar.setText("Atualizar");
+        }
     }
 
     private void configuraBotaoSalvar() {
@@ -61,20 +81,7 @@ public class FomularioUsuario extends AppCompatActivity {
             }
         });
     }
-/*
-    @NotNull
-    private Usuario recuperaInformacoesFormulario() {
-        EditText usuarios = findViewById(R.id.editTextTextPersonName3);
-        EditText jogos = findViewById(R.id.editTextTextPersonName4);
-        EditText getDescricao = findViewById(R.id.editTextTextMultiLine);
-        Usuario usuario = new Usuario();
-        usuario.setUsuario(usuarios.getText().toString());
-        usuario.setJogos(jogos.getText().toString());
-       usuario.setDescricao(getDescricao.getText().toString());
-        usuario.setDataCriacao(new Date());
-        return usuario;
-    }
-*/
+
     @NotNull
     private Usuario recuperaInformacoesFormulario() {
         EditText usuario = findViewById(R.id.editTextoUsuario);
