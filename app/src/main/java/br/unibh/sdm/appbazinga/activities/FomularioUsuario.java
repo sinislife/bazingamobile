@@ -46,7 +46,7 @@ public class FomularioUsuario extends AppCompatActivity {
             botaoSalvar.setText("Atualizar");
         }
     }
-
+/*
     private void configuraBotaoSalvar() {
         Button botaoSalvar = findViewById(R.id.buttonsalvar);
         botaoSalvar.setOnClickListener(new View.OnClickListener() {
@@ -58,8 +58,31 @@ public class FomularioUsuario extends AppCompatActivity {
             }
         });
     }
+*/
+    private void configuraBotaoSalvar() {
+        Button botaoSalvar = findViewById(R.id.buttonsalvar);
+        botaoSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("FormularioCripto","Clicou em Salvar");
+                Usuario usuario = recuperaInformacoesFormulario();
+                Intent intent = getIntent();
+                if (intent.getSerializableExtra("objeto") != null) {
+                    Usuario objeto = (Usuario) intent.getSerializableExtra("objeto");
+                    usuario.setUsuario(objeto.getUsuario());
+                    usuario.setDataCriacao(objeto.getDataCriacao());
+                    //if (validaFormulario(usuario)) {
+                    atualizaUsuario(usuario);
+                   // }
+                } else {
+                    usuario.setDataCriacao(new Date());
 
+                        salvaUsuario(usuario);
+                    }
+                }
 
+        });
+    }
     private void salvaUsuario(final Usuario usuario) {
         UsuarioService service = RestServiceGenerator.createService(UsuarioService.class);
         Call<Usuario> call = service.criaUsuario(usuario);
@@ -68,6 +91,28 @@ public class FomularioUsuario extends AppCompatActivity {
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if (response.isSuccessful()) {
                     Log.i("FormularioUsuario", "Salvou a Usuario "+ usuario.getUsuario());
+                    Toast.makeText(getApplicationContext(), "Salvou a Usuario "+ usuario.getUsuario(), Toast.LENGTH_LONG).show();
+                    finish();
+                } else {
+                    Log.e("FormularioUsuario", "Erro (" + response.code()+"): Verifique novamente os valores");
+                    Toast.makeText(getApplicationContext(), "Erro (" + response.code()+"): Verifique novamente os valores", Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                Log.e("FormularioUsuario", "Erro: " + t.getMessage());
+            }
+        });
+    }
+
+    private void atualizaUsuario(final Usuario usuario) {
+        UsuarioService service = RestServiceGenerator.createService(UsuarioService.class);
+        Call<Usuario> call = service.criaUsuario(usuario);
+        call.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if (response.isSuccessful()) {
+                    Log.i("FormularioUsuario", "Atualiza a Usuario "+ usuario.getUsuario());
                     Toast.makeText(getApplicationContext(), "Salvou a Usuario "+ usuario.getUsuario(), Toast.LENGTH_LONG).show();
                     finish();
                 } else {
