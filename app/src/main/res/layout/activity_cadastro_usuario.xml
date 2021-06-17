@@ -10,23 +10,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="USUARIO"
             android:ems="10"
-            android:id="@+id/editTextTextPersonName3"/>
+            android:id="@+id/editTextoUsuario" android:hint="USUARIO"/>
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="JOGOS"
             android:ems="10"
-            android:id="@+id/editTextTextPersonName4"/>
+            android:id="@+id/editTextoCPF" android:hint="CPF"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editTextoJOGOS" android:hint="JOGOS"/>
     <EditText
             android:layout_width="match_parent"
             android:layout_height="132dp"
             android:inputType="textMultiLine|text"
             android:gravity="start|top"
             android:ems="10"
-            android:id="@+id/editTextTextMultiLine"/>
+            android:id="@+id/editTextoSENHA"/>
     <Button
             android:text="Salvar"
             android:layout_width="match_parent"

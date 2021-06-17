@@ -61,7 +61,7 @@ public class FomularioUsuario extends AppCompatActivity {
             }
         });
     }
-
+/*
     @NotNull
     private Usuario recuperaInformacoesFormulario() {
         EditText usuarios = findViewById(R.id.editTextTextPersonName3);
@@ -74,6 +74,20 @@ public class FomularioUsuario extends AppCompatActivity {
         usuario.setDataCriacao(new Date());
         return usuario;
     }
-
+*/
+    @NotNull
+    private Usuario recuperaInformacoesFormulario() {
+        EditText usuario = findViewById(R.id.editTextoUsuario);
+        EditText jogos = findViewById(R.id.editTextoJOGOS);
+        EditText cpf = findViewById(R.id.editTextoCPF);
+        EditText senha = findViewById(R.id.editTextoSENHA);
+        Usuario usuarios = new Usuario();
+        usuarios.setUsuario(usuario.getText().toString());
+        usuarios.setJogos(jogos.getText().toString());
+        usuarios.setCpf(cpf.getText().toString());
+        usuarios.setSenha(senha.getText().toString());
+        usuarios.setDataCriacao(new Date());
+        return usuarios;
+    }
 
 }

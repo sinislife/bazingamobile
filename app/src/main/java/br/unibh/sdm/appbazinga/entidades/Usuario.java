@@ -8,7 +8,7 @@ public class Usuario {
     private String cpf;
     private String usuario;
     private String jogos;
-    private String descricao;
+    private String senha;
     private Date dataCriacao;
 
 
@@ -36,12 +36,12 @@ public class Usuario {
         this.jogos = jogos;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public Date getDataCriacao() {
@@ -61,7 +61,7 @@ public class Usuario {
                 "cpf='" + cpf + '\'' +
                 ", usuario='" + usuario + '\'' +
                 ", jogos='" + jogos + '\'' +
-                ", descricao='" + descricao + '\'' +
+                ", senha='" + senha + '\'' +
                 ", dataCriacao=" + dataCriacao +
                 '}';
     }
@@ -74,14 +74,15 @@ public class Usuario {
         return Objects.equals(getCpf(), that.getCpf()) &&
                 Objects.equals(getUsuario(), that.getUsuario()) &&
                 Objects.equals(getJogos(), that.getJogos()) &&
-                Objects.equals(getDescricao(), that.getDescricao()) &&
+                Objects.equals(getSenha(), that.getSenha()) &&
                 Objects.equals(getDataCriacao(), that.getDataCriacao());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCpf(), getUsuario(), getJogos(),getDescricao(), getDataCriacao());
+        return Objects.hash(getCpf(), getUsuario(), getJogos(), getSenha(), getDataCriacao());
     }
+
 
 
 }
