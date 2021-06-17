@@ -1,6 +1,7 @@
 package br.unibh.sdm.appbazinga.activities;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -46,20 +47,8 @@ public class FormularioUsuarioActivity extends AppCompatActivity {
             botaoSalvar.setText("Atualizar");
         }
     }
-/*
-    private void configuraBotaoSalvar() {
-        Button botaoSalvar = findViewById(R.id.buttonsalvar);
-        botaoSalvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("FormularioUsuario","Clicou em Salvar");
-                Usuario usuario = recuperaInformacoesFormulario();
-                salvaUsuario(usuario);
-            }
-        });
-    }
-*/
-    private void configuraBotaoSalvar() {
+
+   private void configuraBotaoSalvar() {
         Button botaoSalvar = findViewById(R.id.buttonsalvar);
         botaoSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +72,76 @@ public class FormularioUsuarioActivity extends AppCompatActivity {
 
         });
     }
+
+/*
+    private void configuraBotaoSalvar() {
+        Button botaoSalvar = findViewById(R.id.buttonsalvar);
+        botaoSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("FormularioCripto","Clicou em Salvar");
+                Usuario usuario = recuperaInformacoesFormulario();
+                Intent intent = getIntent();
+                if (intent.getSerializableExtra("objeto") != null) {
+                    Usuario objeto = (Usuario) intent.getSerializableExtra("objeto");
+                    usuario.setUsuario(objeto.getUsuario());
+                    usuario.setDataCriacao(objeto.getDataCriacao());
+                    if (validaFormulario(usuario)) {
+                    atualizaUsuario(usuario);
+                }
+            } else {
+                usuario.setDataCriacao(new Date());
+                if (validaFormulario(usuario)) {
+                    salvaUsuario(usuario);
+                }
+            }
+        }
+    });
+}
+
+
+    private boolean validaFormulario(Usuario usuario){
+        boolean valido = true;
+        EditText usuario = findViewById(R.id.editTextoUsuario);
+        EditText jogos = findViewById(R.id.editTextoJOGOS);
+        EditText cpf = findViewById(R.id.editTextoCPF);
+        EditText senha = findViewById(R.id.editTextoSENHA);
+
+        if (usuario.getUsuario() == null || getUsuario.getCodigo().trim().length() == 0){
+            usuario.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
+            valido = false;
+        } else {
+            usuario.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP);
+        }
+        if (jogos.getJogos() == null || usuario.getJogos().trim().length() == 0){
+            jogos.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
+            valido = false;
+        } else {
+            jogos.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP);
+        }
+        if (cpf.getCpf() == null || getCpf.getDescricao().trim().length() == 0){
+            cpf.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
+            valido = false;
+        } else {
+            cpf.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP);
+        }
+
+        if (senha.getSenha() == null || getSenha.getDescricao().trim().length() == 0){
+            senha.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
+            valido = false;
+        } else {
+            senha.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP);
+        }
+
+
+        if (!valido){
+            Log.e("FormularioCripto", "Favor verificar os campos destacados");
+            Toast.makeText(getApplicationContext(), "Favor verificar os campos destacados", Toast.LENGTH_LONG).show();
+        }
+        return valido;
+    }
+
+*/
     private void salvaUsuario(final Usuario usuario) {
         UsuarioService service = RestServiceGenerator.createService(UsuarioService.class);
         Call<Usuario> call = service.criaUsuario(usuario);

@@ -68,7 +68,7 @@ public class ListaUsuarioActivity extends AppCompatActivity {
             }
         });
     }
-
+     //Verificar se precisa incluir todos os parametros para exclusão
     private void removeCriptomoeda(final Usuario usuario) {
         Call<Boolean> call = null;
         Log.i("ListaCriptoActivity","Vai remover criptomoeda "+usuario.getUsuario());
