@@ -52,11 +52,11 @@ public class ListaUsuarioActivity extends AppCompatActivity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("ListaCriptoActivity","Clicou em clique longo na posicao "+position);
+                Log.i("ListaUsuarioActivity","Clicou em clique longo na posicao "+position);
                 final Usuario objetoSelecionado = (Usuario) parent.getAdapter().getItem(position);
-                Log.i("ListaCriptoActivity", "Selecionou a criptomoeda "+objetoSelecionado.getUsuario());
-                new AlertDialog.Builder(parent.getContext()).setTitle("Removendo Criptomoeda")
-                        .setMessage("Tem certeza que quer remover a criptomoeda "+objetoSelecionado.getUsuario()+"?")
+                Log.i("ListaUsuarioActivity", "Selecionou a usuario "+objetoSelecionado.getUsuario());
+                new AlertDialog.Builder(parent.getContext()).setTitle("Removendo Usuario")
+                        .setMessage("Tem certeza que quer remover a Usuario "+objetoSelecionado.getUsuario()+"?")
                         .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -70,23 +70,23 @@ public class ListaUsuarioActivity extends AppCompatActivity {
      //Verificar se precisa incluir todos os parametros para exclusão
     private void removeUsuario(final Usuario cpf) {
         Call<Boolean> call = null;
-        Log.i("ListaCriptoActivity","Vai remover criptomoeda "+cpf.getCpf());
+        Log.i("ListaUsuarioActivity","Vai remover Usuario "+cpf.getCpf());
         call = this.service.excluiUsuario(cpf.getCpf());
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if (response.isSuccessful()) {
-                    Log.i("ListaCriptoActivity", "Removeu a Criptomoeda " + cpf.getCpf());
-                    Toast.makeText(getApplicationContext(), "Removeu a Criptomoeda " + cpf.getCpf(), Toast.LENGTH_LONG).show();
+                    Log.i("ListaUsuarioActivity", "Removeu a Usuario " + cpf.getCpf());
+                    Toast.makeText(getApplicationContext(), "Removeu a Usuario " + cpf.getCpf(), Toast.LENGTH_LONG).show();
                     onResume();
                 } else {
-                    Log.e("ListaCriptoActivity", "Erro (" + response.code()+"): Verifique novamente os valores");
+                    Log.e("ListaUsuarioActivity", "Erro (" + response.code()+"): Verifique novamente os valores");
                     Toast.makeText(getApplicationContext(), "Erro (" + response.code()+"): Verifique novamente os valores", Toast.LENGTH_LONG).show();
                 }
             }
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
-                Log.e("ListaCriptoActivity", "Erro: " + t.getMessage());
+                Log.e("ListaUsuarioActivity", "Erro: " + t.getMessage());
             }
         });
     }
@@ -96,7 +96,7 @@ public class ListaUsuarioActivity extends AppCompatActivity {
         botaoNovo.setOnClickListener (new View.OnClickListener() {
             @Override
             public  void  onClick (View v) {
-                Log.i("ListaUsuarioActivity"," Clicou no botão para adicionar Nova Criptomoeda ");
+                Log.i("ListaUsuarioActivity"," Clicou no botão para adicionar Nova Usuario ");
                 startActivity (new Intent(ListaUsuarioActivity.this,
                         FormularioUsuarioActivity.class));
 
@@ -111,50 +111,6 @@ public class ListaUsuarioActivity extends AppCompatActivity {
         buscaUsuarios();
     }
 
-/*
-    public void buscaUsuarios(){
-        UsuarioService service = RestServiceGenerator.createService(UsuarioService.class);
-        Call<List<Usuario>> call = service.getUsuario();
-        call.enqueue(new Callback<List<Usuario>>() {
-            @Override
-            public void onResponse(Call<List<Usuario>> call, final Response<List<Usuario>> response) {
-                if (response.isSuccessful()) {
-                    Log.i("UsuarioDAO", "Retornou " + response.body().size() + " Usuario!");
-                    List<String> lista2 = new ArrayList<String>();
-                    for (Usuario item : response.body()) {
-                        lista2.add(item.getUsuario());
-                    }
-                    Log.i("ListaUsuarioActivity", lista2.toArray().toString());
-                    ListView listView = findViewById(R.id.ListviewListaUsuaeios);
-                    listView.setAdapter(new ArrayAdapter<String>(listaUsuarioActivity,
-                            android.R.layout.simple_list_item_1,
-                            lista2));
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Log.i("ListaUsuarioActivity", "Selecionou o objeto de posicao "+position);
-                        Usuario objetoSelecionado = response.body().get(position);
-                        Intent intent = new Intent(ListaUsuarioActivity.this, FormularioUsuarioActivity.class);
-                        intent.putExtra("objeto", objetoSelecionado);
-                        startActivity(intent);
-
-                    }
-                });
-
-                } else {
-                    Log.e("UsuarioDAO", "" + response.message());
-                    Toast.makeText(getApplicationContext(), "Erro: " + response.message(), Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Usuario>> call, Throwable t) {
-                Log.e("Error", "" + t.getMessage());
-            }
-        });
-    }
-}
-*/
 
     public void buscaUsuarios(){
         Call<List<Usuario>> call = this.service.getUsuario();
@@ -162,28 +118,28 @@ public class ListaUsuarioActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
                 if (response.isSuccessful()) {
-                    Log.i("ListaCriptoActivity", "Retornou " + response.body().size() + " Criptomoedas!");
+                    Log.i("ListaUsuarioActivity", "Retornou " + response.body().size() + " Criptomoedas!");
                     ListView listView = findViewById(R.id.ListviewListaUsuaeios);
                     listView.setAdapter(new ListaUsuarioAdapter(context,response.body()));
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Log.i("ListaCriptoActivity", "Selecionou o objeto de posicao "+position);
+                            Log.i("ListaUsuarioActivity", "Selecionou o objeto de posicao "+position);
                             Usuario objetoSelecionado = (Usuario) parent.getAdapter().getItem(position);
-                            Log.i("ListaCriptoActivity", "Selecionou a criptomoeda "+objetoSelecionado.getUsuario());
+                            Log.i("ListaUsuarioActivity", "Selecionou a usuario "+objetoSelecionado.getUsuario());
                             Intent intent = new Intent(ListaUsuarioActivity.this, FormularioUsuarioActivity.class);
                             intent.putExtra("objeto", objetoSelecionado);
                             startActivity(intent);
                         }
                     });
                 } else {
-                    Log.e("ListaCriptoActivity", "" + response.message());
+                    Log.e("ListaUsuarioActivity", "" + response.message());
                     Toast.makeText(getApplicationContext(), "Erro (" + response.code()+"): "+ response.message(), Toast.LENGTH_LONG).show();
                 }
             }
             @Override
             public void onFailure(Call<List<Usuario>> call, Throwable t) {
-                Log.e("ListaCriptoActivity", "Erro: " + t.getMessage());
+                Log.e("ListaUsuarioActivity", "Erro: " + t.getMessage());
             }
         });
     }

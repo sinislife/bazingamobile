@@ -76,32 +76,8 @@ public class FormularioUsuarioActivity extends AppCompatActivity {
         });
     }
 
-/*
-    private void configuraBotaoSalvar() {
-        Button botaoSalvar = findViewById(R.id.buttonsalvar);
-        botaoSalvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("FormularioCripto","Clicou em Salvar");
-                Usuario usuario = recuperaInformacoesFormulario();
-                Intent intent = getIntent();
-                if (intent.getSerializableExtra("objeto") != null) {
-                    Usuario objeto = (Usuario) intent.getSerializableExtra("objeto");
-                    usuario.setUsuario(objeto.getUsuario());
-                    usuario.setDataCriacao(objeto.getDataCriacao());
-                    if (validaFormulario(usuario)) {
-                    atualizaUsuario(usuario);
-                }
-            } else {
-                usuario.setDataCriacao(new Date());
-                if (validaFormulario(usuario)) {
-                    salvaUsuario(usuario);
-                }
-            }
-        }
-    });
-}
 
+/*
 
     private boolean validaFormulario(Usuario usuario){
         boolean valido = true;
