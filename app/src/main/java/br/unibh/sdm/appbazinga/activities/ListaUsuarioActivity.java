@@ -8,10 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-import java.util.ArrayList;
+
 import java.util.List;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import retrofit2.Call;
@@ -61,7 +60,7 @@ public class ListaUsuarioActivity extends AppCompatActivity {
                         .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                removeCriptomoeda(objetoSelecionado);
+                                removeUsuario(objetoSelecionado);
                             }
                         }).setNegativeButton("Não", null).show();
                 return true;
@@ -69,16 +68,16 @@ public class ListaUsuarioActivity extends AppCompatActivity {
         });
     }
      //Verificar se precisa incluir todos os parametros para exclusão
-    private void removeCriptomoeda(final Usuario usuario) {
+    private void removeUsuario(final Usuario cpf) {
         Call<Boolean> call = null;
-        Log.i("ListaCriptoActivity","Vai remover criptomoeda "+usuario.getUsuario());
-        call = this.service.excluiUsuario(usuario.getUsuario());
+        Log.i("ListaCriptoActivity","Vai remover criptomoeda "+cpf.getCpf());
+        call = this.service.excluiUsuario(cpf.getCpf());
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if (response.isSuccessful()) {
-                    Log.i("ListaCriptoActivity", "Removeu a Criptomoeda " + usuario.getUsuario());
-                    Toast.makeText(getApplicationContext(), "Removeu a Criptomoeda " + usuario.getUsuario(), Toast.LENGTH_LONG).show();
+                    Log.i("ListaCriptoActivity", "Removeu a Criptomoeda " + cpf.getCpf());
+                    Toast.makeText(getApplicationContext(), "Removeu a Criptomoeda " + cpf.getCpf(), Toast.LENGTH_LONG).show();
                     onResume();
                 } else {
                     Log.e("ListaCriptoActivity", "Erro (" + response.code()+"): Verifique novamente os valores");
