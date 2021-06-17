@@ -1,6 +1,8 @@
 package br.unibh.sdm.appbazinga.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,8 +44,53 @@ public class ListaUsuarioActivity extends AppCompatActivity {
         service = RestServiceGenerator.createService(UsuarioService.class);
         buscaUsuarios();
         criAcaoBotaoFlutuante();
+        criaAcaoCliqueLongo();
     }
 
+
+    private void criaAcaoCliqueLongo() {
+        ListView listView = findViewById(R.id.ListviewListaUsuaeios);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("ListaCriptoActivity","Clicou em clique longo na posicao "+position);
+                final Usuario objetoSelecionado = (Usuario) parent.getAdapter().getItem(position);
+                Log.i("ListaCriptoActivity", "Selecionou a criptomoeda "+objetoSelecionado.getUsuario());
+                new AlertDialog.Builder(parent.getContext()).setTitle("Removendo Criptomoeda")
+                        .setMessage("Tem certeza que quer remover a criptomoeda "+objetoSelecionado.getUsuario()+"?")
+                        .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                removeCriptomoeda(objetoSelecionado);
+                            }
+                        }).setNegativeButton("Não", null).show();
+                return true;
+            }
+        });
+    }
+
+    private void removeCriptomoeda(final Usuario usuario) {
+        Call<Boolean> call = null;
+        Log.i("ListaCriptoActivity","Vai remover criptomoeda "+usuario.getUsuario());
+        call = this.service.excluiUsuario(usuario.getUsuario());
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (response.isSuccessful()) {
+                    Log.i("ListaCriptoActivity", "Removeu a Criptomoeda " + usuario.getUsuario());
+                    Toast.makeText(getApplicationContext(), "Removeu a Criptomoeda " + usuario.getUsuario(), Toast.LENGTH_LONG).show();
+                    onResume();
+                } else {
+                    Log.e("ListaCriptoActivity", "Erro (" + response.code()+"): Verifique novamente os valores");
+                    Toast.makeText(getApplicationContext(), "Erro (" + response.code()+"): Verifique novamente os valores", Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Log.e("ListaCriptoActivity", "Erro: " + t.getMessage());
+            }
+        });
+    }
 
     private void criAcaoBotaoFlutuante () {
         FloatingActionButton botaoNovo = findViewById (R.id.floatingActionButton2);
@@ -65,7 +112,7 @@ public class ListaUsuarioActivity extends AppCompatActivity {
         buscaUsuarios();
     }
 
-
+/*
     public void buscaUsuarios(){
         UsuarioService service = RestServiceGenerator.createService(UsuarioService.class);
         Call<List<Usuario>> call = service.getUsuario();
@@ -108,4 +155,37 @@ public class ListaUsuarioActivity extends AppCompatActivity {
         });
     }
 }
+*/
 
+    public void buscaUsuarios(){
+        Call<List<Usuario>> call = this.service.getUsuario();
+        call.enqueue(new Callback<List<Usuario>>() {
+            @Override
+            public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
+                if (response.isSuccessful()) {
+                    Log.i("ListaCriptoActivity", "Retornou " + response.body().size() + " Criptomoedas!");
+                    ListView listView = findViewById(R.id.ListviewListaUsuaeios);
+                    listView.setAdapter(new ListaUsuarioAdapter(context,response.body()));
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Log.i("ListaCriptoActivity", "Selecionou o objeto de posicao "+position);
+                            Usuario objetoSelecionado = (Usuario) parent.getAdapter().getItem(position);
+                            Log.i("ListaCriptoActivity", "Selecionou a criptomoeda "+objetoSelecionado.getUsuario());
+                            Intent intent = new Intent(ListaUsuarioActivity.this, FormularioUsuarioActivity.class);
+                            intent.putExtra("objeto", objetoSelecionado);
+                            startActivity(intent);
+                        }
+                    });
+                } else {
+                    Log.e("ListaCriptoActivity", "" + response.message());
+                    Toast.makeText(getApplicationContext(), "Erro (" + response.code()+"): "+ response.message(), Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Usuario>> call, Throwable t) {
+                Log.e("ListaCriptoActivity", "Erro: " + t.getMessage());
+            }
+        });
+    }
+}
