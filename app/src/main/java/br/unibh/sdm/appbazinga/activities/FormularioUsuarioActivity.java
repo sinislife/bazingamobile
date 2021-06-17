@@ -18,7 +18,7 @@ import retrofit2.Response;
 import retrofit2.Callback;
 import java.util.Date;
 
-public class FomularioUsuario extends AppCompatActivity {
+public class FormularioUsuarioActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

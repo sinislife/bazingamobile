@@ -52,7 +52,7 @@ public class ListaUsuarioActivity extends AppCompatActivity {
             public  void  onClick (View v) {
                 Log.i("ListaUsuarioActivity"," Clicou no botão para adicionar Nova Criptomoeda ");
                 startActivity (new Intent(ListaUsuarioActivity.this,
-                        FomularioUsuario.class));
+                        FormularioUsuarioActivity.class));
 
             }
         });
@@ -88,7 +88,7 @@ public class ListaUsuarioActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Log.i("ListaUsuarioActivity", "Selecionou o objeto de posicao "+position);
                         Usuario objetoSelecionado = response.body().get(position);
-                        Intent intent = new Intent(ListaUsuarioActivity.this, FomularioUsuario.class);
+                        Intent intent = new Intent(ListaUsuarioActivity.this, FormularioUsuarioActivity.class);
                         intent.putExtra("objeto", objetoSelecionado);
                         startActivity(intent);
 
