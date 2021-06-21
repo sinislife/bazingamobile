@@ -10,7 +10,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestServiceGenerator {
 
-   // public static final String API_BASE_URL ="http://localhost:8080/usuario-api/"; //"http://34.204.169.56:32769/usuario-api/";//http://10.0.2.2:8080/cripto-api/
     public static final String API_BASE_URL ="http://backend-usuario-1757366576.us-east-1.elb.amazonaws.com/usuario-api/";
     public static <S> S createService(Class<S> serviceClass) {
         Gson gson = new GsonBuilder()

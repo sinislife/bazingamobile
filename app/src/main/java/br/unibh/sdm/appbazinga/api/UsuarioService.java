@@ -29,7 +29,6 @@ public interface UsuarioService {
     Call<Boolean> excluiUsuario(@Path("id") String codigo);
 
 
-   // Call<Usuario> atualizaUsuario(Usuario usuario);
 }
 
 

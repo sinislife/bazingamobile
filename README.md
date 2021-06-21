@@ -33,7 +33,7 @@ se estiver em construção você vai checkando o que está pronto.
 Baixa uma versão em seu amibiente de desenvolvimento, fique a vontade para modificar de acordo com suas necessidades.
 
 
-GIT
+GIT - COMANDOS BÁSICOS E EXEMPLOS
 
 Primeiros Comandos
 git init

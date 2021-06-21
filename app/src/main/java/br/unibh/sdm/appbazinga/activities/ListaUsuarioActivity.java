@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import java.util.List;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import retrofit2.Call;
@@ -20,7 +19,6 @@ import br.unibh.sdm.appbazinga.R;
 import br.unibh.sdm.appbazinga.api.RestServiceGenerator;
 import br.unibh.sdm.appbazinga.api.UsuarioService;
 import br.unibh.sdm.appbazinga.entidades.Usuario;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -67,7 +65,7 @@ public class ListaUsuarioActivity extends AppCompatActivity {
             }
         });
     }
-     //Verificar se precisa incluir todos os parametros para exclusão
+
     private void removeUsuario(final Usuario cpf) {
         Call<Boolean> call = null;
         Log.i("ListaUsuarioActivity","Vai remover Usuario "+cpf.getCpf());

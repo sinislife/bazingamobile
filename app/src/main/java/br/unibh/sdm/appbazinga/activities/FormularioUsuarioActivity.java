@@ -1,7 +1,6 @@
 package br.unibh.sdm.appbazinga.activities;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -137,11 +136,7 @@ public class FormularioUsuarioActivity extends AppCompatActivity {
 
     private void atualizaUsuario(final Usuario usuario) {
         UsuarioService service = RestServiceGenerator.createService(UsuarioService.class);
-       // Call<Usuario> call = service.criaUsuario(usuario);
-      /// Call<Usuario> call;
-
          Call<Usuario> call = service.atualizaUsuario(usuario.getUsuario(), usuario);
-           //call = service.atualizaUsuario(usuario.getUsuario(), usuario);
            call.enqueue(new Callback<Usuario>() {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
