@@ -77,42 +77,32 @@ public class FormularioUsuarioActivity extends AppCompatActivity {
     }
 
 
-/*
 
+/*
     private boolean validaFormulario(Usuario usuario){
         boolean valido = true;
         EditText usuario = findViewById(R.id.editTextoUsuario);
-        EditText jogos = findViewById(R.id.editTextoJOGOS);
         EditText cpf = findViewById(R.id.editTextoCPF);
         EditText senha = findViewById(R.id.editTextoSENHA);
 
-        if (usuario.getUsuario() == null || getUsuario.getCodigo().trim().length() == 0){
+        if (usuario.getUsuario() == null || usuario.getUsuario().trim().length() == 0){
             usuario.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
             valido = false;
         } else {
             usuario.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP);
         }
-        if (jogos.getJogos() == null || usuario.getJogos().trim().length() == 0){
-            jogos.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
-            valido = false;
-        } else {
-            jogos.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP);
-        }
-        if (cpf.getCpf() == null || getCpf.getDescricao().trim().length() == 0){
+        if (cpf.getCpf() == null || usuario.getCpf().trim().length() == 0){
             cpf.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
             valido = false;
         } else {
             cpf.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP);
         }
-
-        if (senha.getSenha() == null || getSenha.getDescricao().trim().length() == 0){
+        if (senha.getSenha() == null || usuario.getSenha().trim().length() == 0){
             senha.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
             valido = false;
         } else {
             senha.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP);
         }
-
-
         if (!valido){
             Log.e("FormularioCripto", "Favor verificar os campos destacados");
             Toast.makeText(getApplicationContext(), "Favor verificar os campos destacados", Toast.LENGTH_LONG).show();
@@ -146,12 +136,12 @@ public class FormularioUsuarioActivity extends AppCompatActivity {
     }
 
     private void atualizaUsuario(final Usuario usuario) {
-        //UsuarioService service = RestServiceGenerator.createService(UsuarioService.class);
+        UsuarioService service = RestServiceGenerator.createService(UsuarioService.class);
        // Call<Usuario> call = service.criaUsuario(usuario);
-       Call<Usuario> call;
+      /// Call<Usuario> call;
 
-      //  Call<Usuario> call = service.atualizaUsuario(usuario.getUsuario(), usuario);
-           call = service.atualizaUsuario(usuario);
+         Call<Usuario> call = service.atualizaUsuario(usuario.getUsuario(), usuario);
+           //call = service.atualizaUsuario(usuario.getUsuario(), usuario);
            call.enqueue(new Callback<Usuario>() {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
